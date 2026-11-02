@@ -1,4 +1,3 @@
-use std::io::{self, Write};
 use reedline::{DefaultPrompt, Reedline, Signal};
 use std::process::Command;
 
@@ -8,7 +7,7 @@ fn main(){
     let prompt = DefaultPrompt::default();
     
     loop{
-        let sig = line_editor.read_line(&prompt).expect("Error reading line").unwrap_or(Signal::CtrlD);
+        let sig = line_editor.read_line(&prompt).unwrap();
         match sig {
             Signal::Success(buffer) => {
                 let input = buffer.trim();
@@ -23,17 +22,24 @@ fn main(){
                 let args: Vec<&str> = parts.collect();
                 
                 match command {
-                    "cd" =>
-                }
-                if let Err(e) = std::env::set_current_dir(&tar) {
-                    eprintln!("cd => {e}");
+                    "cd" => {
+                        let tar = args.join(" ");
+                        if let Err(e) = std::env::set_current_dir(&tar) {
+                            eprintln!("cd => {e}");
+                        }
+                    }
+                    _ => {
+                        if let Err(e) = Command::new(command).args(&args).status() {
+                            eprintln!("xshell => {e}");
+                        }
+                    }
                 }
             }
-            _=> {
-                if let Err(e) = Command::new(command).args(&args).spawn() {
-                    eprintln!("Error executing command: {e}");
-               }
-          }
-        }   
+            Signal::CtrlC | Signal::CtrlD => { 
+                println!("Manual exit");
+                break;
+            }
+                _ => {}
+        }
     }
 }

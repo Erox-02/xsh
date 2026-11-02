@@ -28,3 +28,4 @@ ok now for v0.0.3 i think i will add pipes and then i will add something tht abs
 
 NVIM WORKSS TOO , reedline absolutely cooked this time .
 
+ok i got it a lil messed up , but fixed it and now the legenedary irony , push frm my shell!!!
