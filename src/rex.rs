@@ -1,5 +1,5 @@
-use reedline::{Highlighter, Color, StyledText};
-use nu_ansi_term::Style;
+use reedline::{Highlighter, StyledText};
+use nu_ansi_term::{Style, Color};
 use regex::Regex;
 use std::fs;
 use std::path::Path;
@@ -17,7 +17,13 @@ pub struct SyntaxHighlighter {
 impl SyntaxHighlighter {
     pub fn new(dir: &str) -> Self {
         let mut rules = Vec::new();
+        rules.push(Rule {
+            regex: Regex::new(r"sudo").unwrap(),
+            style: Style::new().fg(Color::Rgb(255, 0, 0)).bold(),
+            priority: 9999,
+        });
         let path = Path::new(dir);
+        println!("Loading syntax rules from: {:?}", path);
         if let Ok(entries) = fs::read_dir(path) {
             let mut paths: Vec<_> = entries.flat_map(|entry| entry.ok().map(|e| e.path())).collect();
             paths.sort();
@@ -28,8 +34,8 @@ impl SyntaxHighlighter {
                         let parsed:Vec<_> = content.lines().filter_map(|l|{
                             let l = l.trim();
                             if l.is_empty() || l.starts_with('#') { return None;}
-                                let mut parts = l.splitn(2, char::is_whitespace);
-                                Some((parts.next().unwrap(), parts.next().unwrap_or("").trim()))}).collect();
+                                let mut parts = l.split_whitespace();
+                                Some((parts.next().unwrap(), parts.next().unwrap_or("")))}).collect();
 
                                 let file_len = parsed.len();
                                 for (idx, (pattern, style_name)) in parsed.into_iter().enumerate() {

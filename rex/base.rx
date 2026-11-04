@@ -1,0 +1,9 @@
+# Core shell 
+
+^sudo\b red
+^cd\b   blue
+^ls\b   green
+^cat\b   green
+\b(error|fail|panic|segfault|err|problem|not found|)\b   red
+\b(success|done|ok|all right)\b   green
+\brm\b   red

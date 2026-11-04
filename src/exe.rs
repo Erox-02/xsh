@@ -7,6 +7,7 @@ pub fn run_shell(){
     let conf = Conf::load();
     let mut line_editor = Reedline::create();
     let prompt = DefaultPrompt::default();
+    let _highlighter = Box::new(SyntaxHighlighter::new("rex"));
     
     loop{
         let sig = line_editor.read_line(&prompt).unwrap();

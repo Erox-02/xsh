@@ -32,7 +32,7 @@ ok i got it a lil messed up , but fixed it and now the legenedary irony , push f
 
 ok it basically gave a pathspec prob but thts for later not now 
 
-# Regex colour highlightin , v0.0.3
+# Regex colour highlightin and aliases, v0.0.3
 
 ok so we gonna make a new file named rex.rs and a lot more , we will do a whole new file extension named ".rx" (short frm for regex) 
 
@@ -68,3 +68,28 @@ looks fine , right? anyways lets write the parser first
  ![](assets/alias.png)
 
  imma gonna test the highlight regex later because i am so sleepy 
+
+---
+
+ok i am back , lets add a regex pattern and test it, btw its pretty easy to text xsh inside xsh and write xsh inside xsh lol!
+
+ok i added an base.rx but it doesnt work :sob: back to debugging
+
+Oh wow i forgot to add the highlighter in my run shell fn and was wondering why main doesnt prints my debug msgs :sob:
+
+still doesnt work :sadage: , even after adding it in exe.rx
+
+ok it works , but no highligh lemme check again
+
+OK now i finally found the err with a really odd bug , my terminal doesnt render normal ansi frm ni-ansi because idk but thts probably the reason , so i will do fixed 256 bit colour approach
+idk not even rgb s working , WTF
+
+ok so i read the docs , did all tht i was supposed to do but still got the classic problem , depiciency version mismatch :cryy:
+
+wait lemme check if my terminal supports it or not 
+
+![](assets/t_is_fine.png)
+
+nah my terminal is fine :lol:
+
+ok enough of this shit now next is a diff one imma gonna get this nu-ansi out , okk verified , we wd use crossterm !
