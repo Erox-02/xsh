@@ -29,3 +29,42 @@ ok now for v0.0.3 i think i will add pipes and then i will add something tht abs
 NVIM WORKSS TOO , reedline absolutely cooked this time .
 
 ok i got it a lil messed up , but fixed it and now the legenedary irony , push frm my shell!!!
+
+ok it basically gave a pathspec prob but thts for later not now 
+
+# Regex colour highlightin , v0.0.3
+
+ok so we gonna make a new file named rex.rs and a lot more , we will do a whole new file extension named ".rx" (short frm for regex) 
+
+
+ok clearly separated the terminal execution workflow , now we gonna do something like a regex like design of my .rx extension , like 
+
+```rx
+# pattern   styles
+^git\s+push green
+```
+
+looks fine , right? anyways lets write the parser first
+
+ i wrote a lot of code and then i realized i can make it far faster and smaaller like i used a struct named rule , i dont even need it for now , i dont knwo why the hell did i even write it , and the rust auto syntax is way too annoying , i mean its good, but wht if i get flaged as ai?
+
+ also i am seeing this a lot , the rust syntax highlighter always rewrites , my regex as a pattern data type BRUH BOTH ARE DIFF , who's gonna tell it to a syntax highlighter?
+
+ bruh this highlighter is a rule based one but its guessing wht i am gonna write(because i have fns and impls thts how he know) but it looks lowk pretty advanced
+
+ ok done , also made a xsh.toml , it will push aliases to my rex and new .rx 
+
+ ok did all and made first alias but lol alot and tons of err , i cant js fix it , still gonna try until i cant ,
+
+ bruh seriously , i js fixed a tuple syntax and got frm 12 errs to 21 :skull: 
+
+ OHHH fixed all with a lil of way too much suffering , now i js needa solve the 2 errs in conf.rs and done i will go to sleep 
+
+ ok so i fixed them all errs , js to not get the feature i built :sadage: , it js igonores my aliases i put on xsh.toml , i put a good enough logic , wait i think i see wht happended lemme try again
+ yeah i got it head on 
+ I PUT COMMAND INSTEAD OF FINal COMMAND , in Command::new() so i was myself the reason of my own suffering :sob:
+
+ ok done it works 
+ ![](assets/alias.png)
+
+ imma gonna test the highlight regex later because i am so sleepy 

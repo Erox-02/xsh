@@ -1,0 +1,5 @@
+[aliases]
+
+ll = "ls -l"
+la = "ls -a"
+g = "git"
