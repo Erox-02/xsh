@@ -93,3 +93,8 @@ wait lemme check if my terminal supports it or not
 nah my terminal is fine :lol:
 
 ok enough of this shit now next is a diff one imma gonna get this nu-ansi out , okk verified , we wd use crossterm !
+
+i am goin to sleep I CANT HANDLE 20 ERRS NOW
+---
+
+ahhh i tried again and  used an impl and struct to use stylize frm crossterm as style but :sob: i got 24 errs instead SO , i will rewrite in crossterm no more tht shit of nu-ansi

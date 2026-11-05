@@ -4,7 +4,7 @@ version = "0.0.2"
 edition = "2024"
 
 [dependencies]
-nu-ansi-term = "0.50.3"
+crossterm = "0.29.0"
 reedline = "0.52.1"
 regex = "1.13.1"
 serde = "1.0.229"

@@ -1,12 +1,12 @@
 use reedline::{Highlighter, StyledText};
-use nu_ansi_term::{Style, Color};
+use crossterm::style::{Color, Stylize};
 use regex::Regex;
 use std::fs;
 use std::path::Path;
 
 struct Rule {
     regex: Regex,
-    style: Style,
+    color_name: String,
     priority: usize,
 }
 
@@ -17,11 +17,6 @@ pub struct SyntaxHighlighter {
 impl SyntaxHighlighter {
     pub fn new(dir: &str) -> Self {
         let mut rules = Vec::new();
-        rules.push(Rule {
-            regex: Regex::new(r"sudo").unwrap(),
-            style: Style::new().fg(Color::Rgb(255, 0, 0)).bold(),
-            priority: 9999,
-        });
         let path = Path::new(dir);
         println!("Loading syntax rules from: {:?}", path);
         if let Ok(entries) = fs::read_dir(path) {
@@ -40,18 +35,8 @@ impl SyntaxHighlighter {
                                 let file_len = parsed.len();
                                 for (idx, (pattern, style_name)) in parsed.into_iter().enumerate() {
                                    if let Ok(regex) = Regex::new(pattern) {
-                                    let style = match style_name {
-                                        "red" => Style::new().fg(Color::Red),
-                                        "green" => Style::new().fg(Color::Green),
-                                        "blue" => Style::new().fg(Color::Blue),
-                                        "yellow" => Style::new().fg(Color::Yellow),
-                                        "magenta" => Style::new().fg(Color::Magenta),
-                                        "cyan" => Style::new().fg(Color::Cyan),
-                                        "white" => Style::new().fg(Color::White),
-                                        _ => Style::default(),
-                                    };
                                     let priority = (file_len * 1000).saturating_sub(idx);
-                                    rules.push(Rule { regex, style, priority });
+                                    rules.push(Rule { regex, color_name: style_name.to_string(), priority });
                                 }
                             }
                             }
@@ -65,7 +50,7 @@ impl SyntaxHighlighter {
 impl Highlighter for SyntaxHighlighter {
     fn highlight(&self, line: &str, _cursor: usize) -> StyledText {
         let mut matches: Vec<_> = self.rules.iter().flat_map(|rule| {
-            rule.regex.find_iter(line).map(move |m| (m.start(), m.end(), rule.style.clone(), rule.priority, rule.style.clone()))
+            rule.regex.find_iter(line).map(move |m| (m.start(), m.end(), rule.color_name.clone(), rule.priority, rule.color_name.clone()))
         }).collect();
         if matches.is_empty() {
             return StyledText::new();
@@ -74,21 +59,21 @@ impl Highlighter for SyntaxHighlighter {
 
         let mut styled = StyledText::new();
         let mut pos = 0;
-        for (start, end, style, _, _) in matches {
+        for (start, end, color_name, _, _) in matches {
             if end <= pos {
                 continue;
             }
             if start > pos {
-                styled.push((Style::default(), line[pos..start].to_string()));
+                styled.push((Style::default(), line[pos..start].to_string())); //todo
             }
 
             let actual_start = start.max(pos);
-            styled.push((style, line[actual_start..end].to_string()));
+            styled.push((reedline::Style::default(), colou ::)); //todo
             pos = end;
         }
         if pos < line.len() {
-            styled.push((Style::default(), line[pos..].to_string()));
-        }
+            styled.push((())); //todo
+        
         styled
     }
 }
