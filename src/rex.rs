@@ -44,7 +44,7 @@ impl SyntaxHighlighter {
                 }
                 return Self{ rules };
             }
-        }
+        
 
 pub fn format_line(&self, line: &str) -> String {
     let mut matches: Vec<_> = self.rules.iter()
@@ -61,7 +61,7 @@ pub fn format_line(&self, line: &str) -> String {
             return line.to_string();
         }
 
-        for (start, end , _priority, color_name) in matches {
+        for (start, end , color_name, _priority) in matches {  // HOLY crap i had it in diff order and i was wondering why am i an trait err on deserializer
             if start > pos {
                 result.push_str(&line[pos..start]);
             }
@@ -83,3 +83,4 @@ pub fn format_line(&self, line: &str) -> String {
         }
         result
     }
+}

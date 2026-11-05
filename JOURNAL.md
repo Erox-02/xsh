@@ -116,3 +116,24 @@ ok i will be using events frm crossterm for it
 okk commented the extra reedline in and wrote the exit sequence for shell in pure rust and crossterm no half cooked crates used , i js matched CONTROL + c/d if matched , std::process:exit(0) , it means kill the terminal process and if something else then {} , nothing , easy right?
 
 okk done , wrote the up down , right left , enter backspace adn wildcard results done now i can finally write executiion process not js the side dishes nut lemme push it first 
+
+okk so we added the old execution logic back because whatever warper , the logic is same but this time i wrote the wraper :yay:
+
+no 16 errs ;sob: lemme fix 
+
+ok abt the format_line() , IT WAS OUT FRM THE IMPL FRM THE START , AND THTS THE MAIN PROB
+
+ok ik now , I GOT THE PATANTHESES WRONG lol 
+
+i wanna use deepseek so bad ,and fix it but as it is a comeback , icant :sadge:
+
+
+IT WORKSSSS YAYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYyy
+
+the colour and alias both works and i didnt even use reedline , all of this with js std and crossterm hell yeah 
+
+![](assets/woek.png)
+
+---
+
+droping reedline was the best thing i could have done , brilliant move (!!)

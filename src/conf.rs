@@ -11,7 +11,7 @@ pub struct Conf {
 
 impl Conf {
     pub fn load() -> Self {
-        let path = Path::new("./xsh.toml");
+        let path = Path::new("xsh.toml");
         if let Ok(content) = fs::read_to_string(path) {
             toml::from_str(&content).unwrap_or_default()
         } else {
