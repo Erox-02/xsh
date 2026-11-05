@@ -137,3 +137,11 @@ the colour and alias both works and i didnt even use reedline , all of this with
 ---
 
 droping reedline was the best thing i could have done , brilliant move (!!)
+
+# v0.0.5 new feature custom prompt showing dir 
+
+the current xsh> looks so dull so i am thinking to do something lik `$(pwd) xsh>` and its really easy , most imperfect decision for 0.0.5 which sounds like a major version lol
+
+ok i will fo with something like prmpt.rs and add the dir fn there and use tht on exe done 
+
+ok i wrote the whole and did some debugging but when testing , i saw it working really odd , its trying to render ! but showing " " or js space and the dir function isnt workin too m gotta fix it tomorrow

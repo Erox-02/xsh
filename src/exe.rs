@@ -7,6 +7,7 @@ use crossterm::{
 use crate::rex::SyntaxHighlighter;
 use crate::conf::Conf;
 use std::io::{stdout, Write};
+use crate::prmpt::get_prompt;
 
 pub fn run_shell(){
     let conf = Conf::load();
@@ -15,6 +16,7 @@ pub fn run_shell(){
     terminal::enable_raw_mode().unwrap();
     let mut history: Vec<String> = Vec::new();
     let mut history_idx = 0;
+    let mut last_exit_code = 0;
 
     loop {
     
@@ -27,6 +29,7 @@ pub fn run_shell(){
     let mut cursor_pos = 0;
 
     loop {
+        let(prompt_str, prompt_len) = get_prompt(last_exit_code);
         if let Event::Key(key_event) = event::read().unwrap() {
             if key_event.modifiers.contains(KeyModifiers::CONTROL) {
                 match key_event.code {
@@ -82,7 +85,7 @@ pub fn run_shell(){
 
             execute!(
                 stdout(),
-                cursor::MoveToColumn(5),
+                cursor::MoveToColumn(prompt_len),
                 terminal::Clear(terminal::ClearType::UntilNewLine)
             ).unwrap();
 
@@ -92,7 +95,7 @@ pub fn run_shell(){
 
             execute!(
                 stdout(),
-                cursor::MoveToColumn(5 + cursor_pos as u16)
+                cursor::MoveToColumn(prompt_len + cursor_pos as u16)
             ).unwrap();
             stdout().flush().unwrap();
             }
@@ -120,11 +123,15 @@ pub fn run_shell(){
                 let tar = args.join(" ");
                 if let Err(e) = std::env::set_current_dir(&tar) {
             eprintln!("cd => {e}");
+            last_exit_code = 1;
+                } else {
+                    last_exit_code = 0;
                 }
             }
             _ => {
                 if let Err(e) = Command::new(&final_command).args(&args).status() {
                     eprintln!("xshell => {e}");
+                    last_exit_code = 127;
                 }
             }
         }
