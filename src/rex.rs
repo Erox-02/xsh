@@ -1,5 +1,4 @@
-use reedline::{Highlighter, StyledText};
-use crossterm::style::{Color, Stylize};
+use crossterm::style::Stylize;
 use regex::Regex;
 use std::fs;
 use std::path::Path;
@@ -47,33 +46,40 @@ impl SyntaxHighlighter {
             }
         }
 
-impl Highlighter for SyntaxHighlighter {
-    fn highlight(&self, line: &str, _cursor: usize) -> StyledText {
-        let mut matches: Vec<_> = self.rules.iter().flat_map(|rule| {
-            rule.regex.find_iter(line).map(move |m| (m.start(), m.end(), rule.color_name.clone(), rule.priority, rule.color_name.clone()))
-        }).collect();
-        if matches.is_empty() {
-            return StyledText::new();
-        }
-        matches.sort_by(|a, b| (a.0, std::cmp::Reverse(a.3)).cmp(&(b.0, std::cmp::Reverse(b.3)))); // this thing gave me an iterator err, i stil dont get it and the nastiest err i found in this whole proj
+pub fn format_line(&self, line: &str) -> String {
+    let mut matches: Vec<_> = self.rules.iter()
+        .filter_map(|rule| {
+            rule.regex.find(line).map(|m| (m.start(), m.end(), &rule.color_name, rule.priority))
+        })
+        .collect();
 
-        let mut styled = StyledText::new();
+        matches.sort_by(|a, b| a.0.cmp(&b.0));
+        let mut result = String::new();
         let mut pos = 0;
-        for (start, end, color_name, _, _) in matches {
-            if end <= pos {
-                continue;
-            }
-            if start > pos {
-                styled.push((Style::default(), line[pos..start].to_string())); //todo
-            }
 
-            let actual_start = start.max(pos);
-            styled.push((reedline::Style::default(), colou ::)); //todo
+        if matches.is_empty() {
+            return line.to_string();
+        }
+
+        for (start, end , _priority, color_name) in matches {
+            if start > pos {
+                result.push_str(&line[pos..start]);
+            }
+            let styled = match color_name.as_str() {
+                "red" => line[start..end].red().to_string(),
+                "green" => line[start..end].green().to_string(),
+                "blue" => line[start..end].blue().to_string(),
+                "yellow" => line[start..end].yellow().to_string(),
+                "magenta" => line[start..end].magenta().to_string(),
+                "cyan" => line[start..end].cyan().to_string(),
+                _ => line[start..end].to_string(),
+            };
+            result.push_str(&styled);
             pos = end;
         }
+
         if pos < line.len() {
-            styled.push((())); //todo
-        
-        styled
+            result.push_str(&line[pos..]);
+        }
+        result
     }
-}

@@ -1,11 +1,10 @@
 [package]
 name = "xsh"
-version = "0.0.2"
+version = "0.0.4"
 edition = "2024"
 
 [dependencies]
 crossterm = "0.29.0"
-reedline = "0.52.1"
 regex = "1.13.1"
 serde = "1.0.229"
 toml = "1.1.8"

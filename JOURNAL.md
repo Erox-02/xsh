@@ -98,3 +98,21 @@ i am goin to sleep I CANT HANDLE 20 ERRS NOW
 ---
 
 ahhh i tried again and  used an impl and struct to use stylize frm crossterm as style but :sob: i got 24 errs instead SO , i will rewrite in crossterm no more tht shit of nu-ansi
+
+ok so i js tried to use reedline::style::Style after getting strucked by it 3 times , maybe ai will take our jobs :sob:
+
+ ok enough of this shit we will drop reedline i am done with it , so the 0.0.3 will be left unfinished and we will do whole rewrite with crossterm only , though i was familiar with reedline, i dont wanna use it :hmpf:\\
+
+ # Droping reedline , Crossterm only v0.0.4
+
+ ok rewrote the rex.rs with a mcuh simpler logic , i sorted the text via positions, last time i was really messing it up
+also i didnt even touch thte first part , the syntax highlighter impl , because if it works , it works dont touch it
+
+wait wait wait , it means now i needa write all the execution logic myself in exe :sobbb:
+
+ok i will be using events frm crossterm for it
+
+
+okk commented the extra reedline in and wrote the exit sequence for shell in pure rust and crossterm no half cooked crates used , i js matched CONTROL + c/d if matched , std::process:exit(0) , it means kill the terminal process and if something else then {} , nothing , easy right?
+
+okk done , wrote the up down , right left , enter backspace adn wildcard results done now i can finally write executiion process not js the side dishes nut lemme push it first 
