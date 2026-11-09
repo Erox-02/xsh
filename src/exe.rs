@@ -20,16 +20,15 @@ pub fn run_shell(){
 
     loop {
     
+    let(prompt_str, prompt_len) = get_prompt(last_exit_code);
     execute!(stdout(), cursor::MoveToColumn(0)).unwrap();
-    print!("xsh> ");
-
+    print!("{prompt_str}");
     stdout().flush().unwrap();
 
     let mut buffer = String::new();
     let mut cursor_pos = 0;
 
     loop {
-        let(prompt_str, prompt_len) = get_prompt(last_exit_code);
         if let Event::Key(key_event) = event::read().unwrap() {
             if key_event.modifiers.contains(KeyModifiers::CONTROL) {
                 match key_event.code {

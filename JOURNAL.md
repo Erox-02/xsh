@@ -145,3 +145,10 @@ the current xsh> looks so dull so i am thinking to do something lik `$(pwd) xsh>
 ok i will fo with something like prmpt.rs and add the dir fn there and use tht on exe done 
 
 ok i wrote the whole and did some debugging but when testing , i saw it working really odd , its trying to render ! but showing " " or js space and the dir function isnt workin too m gotta fix it tomorrow
+
+oh so i was working with dir? journaling helps a lottt
+
+ok a fresh mind is really essential thing , i js sat right now less than 5 mins and fixed it , i js put the fetch function inside inner loop and was didnt even called it lol 
+![](assets/WORKSSS.png)
+
+---
