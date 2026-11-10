@@ -140,7 +140,7 @@ droping reedline was the best thing i could have done , brilliant move (!!)
 
 # v0.0.5 new feature custom prompt showing dir 
 
-the current xsh> looks so dull so i am thinking to do something lik `$(pwd) xsh>` and its really easy , most imperfect decision for 0.0.5 which sounds like a major version lol
+the current xsh> looks so dull so i am thinking to do something lik `$(pwd) xsh >` and its really easy , most imperfect decision for 0.0.5 which sounds like a major version lol
 
 ok i will fo with something like prmpt.rs and add the dir fn there and use tht on exe done 
 
@@ -153,5 +153,9 @@ ok a fresh mind is really essential thing , i js sat right now less than 5 mins 
 
 
 ok changed the prompt initial text with a extra space also , added a ">" after the err sign "!" it looks like a macro to me lol 
+
 ---
 
+# v0.0.6 adding shelex to make git commit work
+
+in the current version , i cant commit frm xsh because ti `.whitespace()` the prompt frm user so when i type , git commit -m"i use arch btw ", whitespace breaks the quotes too and passes "i , use , arch , btw" to git and it throws an err , so only it works for one word which sucls , i will fix it real quick with shlex and also i will add wilcard(glob) on next version , v0.1 will be the first release ,!!

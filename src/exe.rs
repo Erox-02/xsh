@@ -106,12 +106,23 @@ pub fn run_shell(){
         history.push(input.to_string());
         history_idx = history.len();
 
-        let mut parts = input.split_whitespace();
-        let command = parts.next().unwrap();
-        let mut args: Vec<String> = parts.map(|s| s.to_string()).collect();
+        let parts = match shlex::split(input) {
+            Some(p) => p,
+            None => {
+                eprintln!("Unfinished quote baka");
+                last_exit_code = 1;
+                continue;
+            }
+        };
+        if parts.is_empty() {
+            continue;
+        }
+
+        let command = &parts[0];
+        let mut args: Vec<String> = parts[1..].to_vec();  // i am passing all the slices here 
 
         let mut final_command = command.to_string();
-        if let Some(expanded) = conf.resolv_alias(command, &args.iter().map(|s| s.as_str()).collect::<Vec<_>>()) {
+        if let Some(expanded) = conf.resolv_alias(command.as_str(), &args.iter().map(|s| s.as_str()).collect::<Vec<_>>()) {
             let mut expanded_parts = expanded.split_whitespace();
             final_command = expanded_parts.next().unwrap().to_string(); 
            args = expanded_parts.map(|s| s.to_string()).collect();
