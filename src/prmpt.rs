@@ -9,7 +9,7 @@ pub fn get_prompt(exit_code: i32) -> (String, u16) {
         dir_str = format!("~{}", &dir_str[home.len()..]);
     }
 
-    let prompt_symbol = if exit_code == 0 {"> "} else {"! >"}; //looks cooolll 
+    let prompt_symbol = if exit_code == 0 {"> "} else {"!> "}; //looks cooolll 
     let prompt_str = format!("{} {}", dir_str, prompt_symbol);
     let len = prompt_str.len() as u16;
     (prompt_str, len)

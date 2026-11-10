@@ -22,7 +22,7 @@ pub fn run_shell(){
     
     let(prompt_str, prompt_len) = get_prompt(last_exit_code);
     execute!(stdout(), cursor::MoveToColumn(0)).unwrap();
-    print!("{prompt_str} ");
+    print!("{prompt_str}");
     stdout().flush().unwrap();
 
     let mut buffer = String::new();
@@ -65,7 +65,7 @@ pub fn run_shell(){
                     }
                 }
                 KeyCode::Down => {
-                    if history_idx < 0 {
+                    if history_idx < history.len() {
                     history_idx += 1;
                     if history_idx == history.len() {
                         buffer.clear();
@@ -142,11 +142,23 @@ pub fn run_shell(){
         }
 
         let mut final_command = command.to_string();
-        if let Some(expanded) = conf.resolv_alias(command.as_str(), &args.iter().map(|s| s.as_str()).collect::<Vec<_>>()) {
-            let mut expanded_parts = expanded.split_whitespace();
-            final_command = expanded_parts.next().unwrap().to_string(); 
-           args = expanded_parts.map(|s| s.to_string()).collect();
+        let args_refs: Vec<&str> = args.iter().map(|s| s.as_str()).collect();
+        if let Some(expanded) = conf.resolv_alias(command.as_str(), &args_refs) {
+            if let Some(alias_parts) = shlex::split(&expanded) {
+                if !alias_parts.is_empty() {
+                    final_command = alias_parts[0].clone();
+                
+            // final_command = expanded_parts.next().unwrap().to_string();
+
+            // let mut alias_args: Vec<String> = expanded_parts.map(|s| s.to_string()).collect();
+            let mut alias_args: Vec<String> = alias_parts[1..].to_vec();
+            alias_args.extend(args); 
+           args = alias_args;
+        // TODO ==> FIX alias + multi word quoted text fix , Swapiness = 50
+        
         }
+    }
+}
 
         match final_command.as_str() {
             "cd" => {

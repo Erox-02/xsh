@@ -171,3 +171,13 @@ ok i js added glob and it was pretty easy , didnt took much time at all , i js a
 wait also i found too many \n in the output i needa fix tht 
 
 ---
+
+# v0.0.7 bug fix
+
+i saw the err is like this 
+
+![](assets/err.png) also wildcard doesnt work with allias so imma gonna fix those two
+
+
+okk i saw the err , its i used whitespace() for the alias side , legacy code v/s dev lol 
+okk so the shlex didnt fix it , i think i will add it to TODO list lol , and now i needa fix the oddly behaviour of a lot of \n
