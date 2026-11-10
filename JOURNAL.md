@@ -159,3 +159,7 @@ ok changed the prompt initial text with a extra space also , added a ">" after t
 # v0.0.6 adding shelex to make git commit work
 
 in the current version , i cant commit frm xsh because ti `.whitespace()` the prompt frm user so when i type , git commit -m"i use arch btw ", whitespace breaks the quotes too and passes "i , use , arch , btw" to git and it throws an err , so only it works for one word which sucls , i will fix it real quick with shlex and also i will add wilcard(glob) on next version , v0.1 will be the first release ,!!
+
+IT WORKSSSSS easy .
+
+---
