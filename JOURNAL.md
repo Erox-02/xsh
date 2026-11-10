@@ -181,3 +181,14 @@ i saw the err is like this
 
 okk i saw the err , its i used whitespace() for the alias side , legacy code v/s dev lol 
 okk so the shlex didnt fix it , i think i will add it to TODO list lol , and now i needa fix the oddly behaviour of a lot of \n
+
+mizuketa , i used crossterms  cleartype unitnewline which generates a new line on each , tht the source of all errs , i got it , easy fix
+
+ok now i used move to coloumn 0 so it takes me to the first portion and i will reprint the prompt but wll it fix it? time knows the ans, 
+
+so it didnt work , idk why lets try the docs or source code
+
+ohh i realized a thing lemme verify it first
+
+yeaha hell yeah i am a genious , i saw it and found it , the stylize in crossterm generates a ansi-escape which makes the terminal see more than what chars i have got , easy i will needa strip tht 
+i js realized i am pretty good in debugging even without ai

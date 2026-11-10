@@ -84,10 +84,12 @@ pub fn run_shell(){
 
             execute!(
                 stdout(),
-                cursor::MoveToColumn(prompt_len),
-                terminal::Clear(terminal::ClearType::UntilNewLine)
+                cursor::MoveToColumn(0),
+                terminal::Clear(terminal::ClearType::CurrentLine)  // this unitnewline is the cause of the prob , definately
             ).unwrap();
 
+            print!("{prompt_str}");
+            
             let colored_line = _highlighter.format_line(&buffer);
             print!("{}", colored_line);
 
