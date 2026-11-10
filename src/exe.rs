@@ -22,7 +22,7 @@ pub fn run_shell(){
     
     let(prompt_str, prompt_len) = get_prompt(last_exit_code);
     execute!(stdout(), cursor::MoveToColumn(0)).unwrap();
-    print!("{prompt_str}");
+    print!("{prompt_str} ");
     stdout().flush().unwrap();
 
     let mut buffer = String::new();

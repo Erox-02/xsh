@@ -151,4 +151,7 @@ oh so i was working with dir? journaling helps a lottt
 ok a fresh mind is really essential thing , i js sat right now less than 5 mins and fixed it , i js put the fetch function inside inner loop and was didnt even called it lol 
 ![](assets/WORKSSS.png)
 
+
+ok changed the prompt initial text with a extra space also , added a ">" after the err sign "!" it looks like a macro to me lol 
 ---
+
