@@ -119,7 +119,27 @@ pub fn run_shell(){
         }
 
         let command = &parts[0];
-        let mut args: Vec<String> = parts[1..].to_vec();  // i am passing all the slices here 
+        let mut args: Vec<String> = Vec::new(); 
+
+        for arg in &parts[1..] {
+            if arg.contains("*") || arg.contains("?") {
+                match glob::glob(arg) {
+                    Ok(paths) => {
+                        let mut found = false ;
+                        for entry in paths.flatten() {
+                            args.push(entry.to_string_lossy().to_string());
+                            found = true;
+                        }
+                        if !found {
+                            args.push(arg.clone());  // if it doesnt match , keep th literal 
+                        }
+                    }
+                    Err(_) => args.push(arg.clone()),
+                }
+            } else {
+                args.push(arg.clone()); // dont use wildcard , push the clone directly
+            }
+        }
 
         let mut final_command = command.to_string();
         if let Some(expanded) = conf.resolv_alias(command.as_str(), &args.iter().map(|s| s.as_str()).collect::<Vec<_>>()) {

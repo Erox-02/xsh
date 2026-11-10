@@ -163,3 +163,11 @@ in the current version , i cant commit frm xsh because ti `.whitespace()` the pr
 IT WORKSSSSS easy .
 
 ---
+
+# v0.0.7 adding glob to use wildcards like "*" "?"
+
+ok i js added glob and it was pretty easy , didnt took much time at all , i js added glob , rewrote the arg pushing portion and done anyways i did it so see ya in next commit UwU
+
+wait also i found too many \n in the output i needa fix tht 
+
+---

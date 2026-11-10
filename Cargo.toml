@@ -1,10 +1,11 @@
 [package]
 name = "xsh"
-version = "0.0.6"
+version = "0.0.7"
 edition = "2024"
 
 [dependencies]
 crossterm = "0.29.0"
+glob = "0.3.4"
 regex = "1.13.1"
 serde = { version = "1.0", features = ["derive"]}
 shlex = "2.0.1"
