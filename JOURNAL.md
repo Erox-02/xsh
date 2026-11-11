@@ -191,4 +191,6 @@ so it didnt work , idk why lets try the docs or source code
 ohh i realized a thing lemme verify it first
 
 yeaha hell yeah i am a genious , i saw it and found it , the stylize in crossterm generates a ansi-escape which makes the terminal see more than what chars i have got , easy i will needa strip tht 
-i js realized i am pretty good in debugging even without ai
+i js realized i am pretty good in debugging even without ai.
+
+ok looks like i am not , i added strip frm `strip_ansi_escapes` but the odd expansion still is here :skull: lol  

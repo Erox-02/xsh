@@ -93,10 +93,14 @@ pub fn run_shell(){
             let colored_line = _highlighter.format_line(&buffer);
             print!("{}", colored_line);
 
-
+            let buffer_before_cursor = &buffer[..cursor_pos];
+            let styled_before_cursor = _highlighter.format_line(buffer_before_cursor);
+            
+            let visible_before_cursor =  strip_ansi_escapes::strip(&styled_before_cursor);
+            let visible_before_len = String::from_utf8_lossy(&visible_before_cursor).len() as u16;
             execute!(
                 stdout(),
-                cursor::MoveToColumn(prompt_len + cursor_pos as u16)
+                cursor::MoveToColumn(prompt_len + visible_before_len)
             ).unwrap();
             stdout().flush().unwrap();
             }
