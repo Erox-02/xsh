@@ -194,3 +194,7 @@ yeaha hell yeah i am a genious , i saw it and found it , the stylize in crosster
 i js realized i am pretty good in debugging even without ai.
 
 ok looks like i am not , i added strip frm `strip_ansi_escapes` but the odd expansion still is here :skull: lol  
+
+ok i think i have to do the neuclear method , track coloumn and row both 
+
+I LITERALLY TRIED FUCKING EVERYTHING IT DOESNT WORKS AT ALL

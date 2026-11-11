@@ -82,27 +82,52 @@ pub fn run_shell(){
                 _ => {}
             }
 
+            let (start_col, start_row) = cursor::position().unwrap_or((0,0));
+            
+            let old_coloured = _highlighter.format_line(&buffer);
+            let old_vis_bytes = strip_ansi_escapes::strip(&old_coloured);
+            let old_vis_len = String::from_utf8_lossy(&old_vis_bytes).len() as u16;
+
             execute!(
                 stdout(),
                 cursor::MoveToColumn(0),
                 terminal::Clear(terminal::ClearType::CurrentLine)  // this unitnewline is the cause of the prob , definately
             ).unwrap();
-
-            print!("{prompt_str}");
             
             let colored_line = _highlighter.format_line(&buffer);
-            print!("{}", colored_line);
+            print!("{prompt_str}{colored_line}");
 
             let buffer_before_cursor = &buffer[..cursor_pos];
             let styled_before_cursor = _highlighter.format_line(buffer_before_cursor);
-            
             let visible_before_cursor =  strip_ansi_escapes::strip(&styled_before_cursor);
-            let visible_before_len = String::from_utf8_lossy(&visible_before_cursor).len() as u16;
-            execute!(
-                stdout(),
-                cursor::MoveToColumn(prompt_len + visible_before_len)
-            ).unwrap();
-            stdout().flush().unwrap();
+            let visible_before_len = String::from_utf8_lossy(&visible_before_cursor).len() as u16;  
+
+            // execute!(
+                // stdout(),
+                // cursor::MoveToColumn(prompt_len + visible_before_len)
+            // ).unwrap();
+            // stdout().flush().unwrap();
+
+            let target_col = prompt_len + visible_before_len;
+            let (term_wid, _) = terminal::size().unwrap_or((80,25)); // size Returns the terminal size (columns, rows) => frm `https://docs.rs/crossterm/0.29.0/crossterm/terminal/index.html` 
+            // i didnt pass the default 80x24 because it is too basic instead i used 80x25 lol its legacy too but i js didnt wanna use the old unix way here
+            
+            if target_col >= term_wid {
+                let rows_down = target_col / term_wid;
+                let final_col = target_col % term_wid;
+
+                execute!(
+                    stdout(),
+                    cursor::MoveUp(rows_down),
+                    cursor::MoveToColumn(final_col)
+                ).unwrap_or_default();
+                } else {
+                execute!(
+                    stdout(),
+                    cursor::MoveToColumn(target_col),
+                ).unwrap_or_default();
+                }
+                stdout().flush().unwrap();
             }
         }
         let input = buffer.trim();
