@@ -17,7 +17,7 @@ impl SyntaxHighlighter {
     pub fn new(dir: &str) -> Self {
         let mut rules = Vec::new();
         let path = Path::new(dir);
-        println!("Loading syntax rules from: {:?}", path);
+        println!("Loading syntax rules from: {:?}.rs", path);
         if let Ok(entries) = fs::read_dir(path) {
             let mut paths: Vec<_> = entries.flat_map(|entry| entry.ok().map(|e| e.path())).collect();
             paths.sort();
@@ -46,7 +46,7 @@ impl SyntaxHighlighter {
             }
         
 
-pub fn format_line(&self, line: &str) -> String {
+pub fn format_line(&self, line: &str) -> String {  // use vec and option<color ,string > instead of js passing a string  
     let mut matches: Vec<_> = self.rules.iter()
         .filter_map(|rule| {
             rule.regex.find(line).map(|m| (m.start(), m.end(), &rule.color_name, rule.priority))
@@ -61,7 +61,7 @@ pub fn format_line(&self, line: &str) -> String {
             return line.to_string();
         }
 
-        for (start, end , color_name, _priority) in matches {  // HOLY crap i had it in diff order and i was wondering why am i an trait err on deserializer
+        for (start, end , color_name, _priority) in matches {  
             if start > pos {
                 result.push_str(&line[pos..start]);
             }
