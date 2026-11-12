@@ -103,20 +103,22 @@ pub fn run_shell(){
 
             for (colour, text) in colored_line {    // its a mess with my normal british colour and the crates color american english lol
                 if let Some(x) = colour {
-                    execute!(stdout(), crossterm::style::SetForegroundColor(x)).unwrap();
+                    print!("{}", text.as_str().with(x));
+                    // execute!(stdout(), crossterm::style::SetForegroundColor(x)).unwrap();
                 } else {
-                    execute!(stdout(), crossterm::style::ResetColor).unwrap();
+                    print!("{text}");
+                    // execute!(stdout(), crossterm::style::ResetColor).unwrap();
                 }
-                print!("{text}");
 
-                if visible_len + text.len() <= cursor_pos {
-                    cursor_col += text.len() as u16;
+                let text_len = text.len();  // ITS IN BYTES NOT IN UTF
+                if visible_len + text_len() <= cursor_pos {
+                    cursor_col += text_len() as u16;
                 } else if visible_len < cursor_pos {
                     let offset = cursor_pos - visible_len; 
                     cursor_col += offset as u16;
                 }
                 visible_len += text.len();
-            }
+            }  // i had to make it dead simple
 
             execute!(stdout(), crossterm::style::ResetColor).unwrap();
 
