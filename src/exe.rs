@@ -97,11 +97,11 @@ pub fn run_shell(){
             
             print!("{prompt_str}");
             
-            let colored_line = _highlighter.format_line(&buffer);
+            let colored_line = _highlighter.format_line(&buffer);  // wait why the hell the compiler is telling this is a string? it is a vec
             let mut visible_len = 0;
             let mut cursor_col =  prompt_len;
 
-            for (colour, text) in colored_line {    // its a mess with my normal british colour and the crates color american english lol
+            for (colour, text) in &colored_line {    // its a mess with my normal british colour and the crates color american english lol
                 if let Some(x) = colour {
                     print!("{}", text.as_str().with(x));
                     // execute!(stdout(), crossterm::style::SetForegroundColor(x)).unwrap();

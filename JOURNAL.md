@@ -204,3 +204,7 @@ OK i found it ,  i think this one will be a save , if it is not , i will put it 
 ok i added the logic to directly differentiate colour and text len , got a byte vs String prob , gonna fix on next commit 
 
 MY plan was perfect , WHY IT DOESNT WORK AT ALL???
+
+i looked through it nd now i js cant find the bug , i saw through my format_line it is vec not string and the OHHHH i can use a slice it will definately work
+
+ok it js doesnt work , i am out for now 
