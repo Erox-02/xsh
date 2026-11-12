@@ -3,6 +3,7 @@ use crossterm::{
     event::{self , Event, KeyCode, KeyModifiers},
     execute, terminal,
     cursor,
+    style
 };
 use crate::rex::SyntaxHighlighter;
 use crate::conf::Conf;
@@ -40,14 +41,14 @@ pub fn run_shell(){
                     _=> {}
                 }
             }
-            match key_event.code {  //bruh wtf i added a dot after match , am i drunk or something?
+            match key_event.code {  //bruh wtf i added a dot after match , am i drunk or something
                 KeyCode::Enter => {
                     println!("\r");
                     break;
                 }
                 KeyCode::Backspace => {
                     if cursor_pos > 0 {
-                        buffer.remove(cursor_pos - 1);
+                        buffer.remove(cursor_pos - 1); 
                         cursor_pos -= 1; // lol i accidentally wrote , current_pos = -1; :skull:
                     }
                 }
@@ -82,11 +83,11 @@ pub fn run_shell(){
                 _ => {}
             }
 
-            let (start_col, start_row) = cursor::position().unwrap_or((0,0));
+            // let (start_col, start_row) = cursor::position().unwrap_or((0,0));
             
-            let old_coloured = _highlighter.format_line(&buffer);
-            let old_vis_bytes = strip_ansi_escapes::strip(&old_coloured);
-            let old_vis_len = String::from_utf8_lossy(&old_vis_bytes).len() as u16;
+            // let old_coloured = _highlighter.format_line(&buffer);
+            // let old_vis_bytes = strip_ansi_escapes::strip(&old_coloured);
+            // let old_vis_len = String::from_utf8_lossy(&old_vis_bytes).len() as u16;
 
             execute!(
                 stdout(),
@@ -94,13 +95,40 @@ pub fn run_shell(){
                 terminal::Clear(terminal::ClearType::CurrentLine)  // this unitnewline is the cause of the prob , definately
             ).unwrap();
             
+            print!("{prompt_str}");
+            
             let colored_line = _highlighter.format_line(&buffer);
-            print!("{prompt_str}{colored_line}");
+            let mut visible_len = 0;
+            let mut cursor_col =  prompt_len;
 
-            let buffer_before_cursor = &buffer[..cursor_pos];
-            let styled_before_cursor = _highlighter.format_line(buffer_before_cursor);
-            let visible_before_cursor =  strip_ansi_escapes::strip(&styled_before_cursor);
-            let visible_before_len = String::from_utf8_lossy(&visible_before_cursor).len() as u16;  
+            for (colour, text) in colored_line {    // its a mess with my normal british colour and the crates color american english lol
+                if let Some(x) = colour {
+                    execute!(stdout(), crossterm::style::SetForegroundColor(x)).unwrap();
+                } else {
+                    execute!(stdout(), crossterm::style::ResetColor).unwrap();
+                }
+                print!("{text}");
+
+                if visible_len + text.len() <= cursor_pos {
+                    cursor_col += text.len() as u16;
+                } else if visible_len < cursor_pos {
+                    let offset = cursor_pos - visible_len; 
+                    cursor_col += offset as u16;
+                }
+                visible_len += text.len();
+            }
+
+            execute!(stdout(), crossterm::style::ResetColor).unwrap();
+
+            execute!(
+                stdout(),
+                cursor::MoveToColumn(cursor_col)
+            ).unwrap();
+            //  ======================================= legacy code ========================================================================================================================================
+            // let buffer_before_cursor = &buffer[..cursor_pos];
+            // let styled_before_cursor = _highlighter.format_line(buffer_before_cursor);
+            // let visible_before_cursor =  strip_ansi_escapes::strip(&styled_before_cursor);
+            // let visible_before_len = String::from_utf8_lossy(&visible_before_cursor).len() as u16;  
 
             // execute!(
                 // stdout(),
@@ -108,25 +136,26 @@ pub fn run_shell(){
             // ).unwrap();
             // stdout().flush().unwrap();
 
-            let target_col = prompt_len + visible_before_len;
-            let (term_wid, _) = terminal::size().unwrap_or((80,25)); // size Returns the terminal size (columns, rows) => frm `https://docs.rs/crossterm/0.29.0/crossterm/terminal/index.html` 
-            // i didnt pass the default 80x24 because it is too basic instead i used 80x25 lol its legacy too but i js didnt wanna use the old unix way here
+            // let target_col = prompt_len + visible_before_len;
+            // let (term_wid, _) = terminal::size().unwrap_or((80,25)); // size Returns the terminal size (columns, rows) => frm `https://docs.rs/crossterm/0.29.0/crossterm/terminal/index.html` 
+            //  i didnt pass the default 80x24 because it is too basic instead i used 80x25 lol its legacy too but i js didnt wanna use the old unix way here
             
-            if target_col >= term_wid {
-                let rows_down = target_col / term_wid;
-                let final_col = target_col % term_wid;
-
-                execute!(
-                    stdout(),
-                    cursor::MoveUp(rows_down),
-                    cursor::MoveToColumn(final_col)
-                ).unwrap_or_default();
-                } else {
-                execute!(
-                    stdout(),
-                    cursor::MoveToColumn(target_col),
-                ).unwrap_or_default();
-                }
+            // if target_col >= term_wid {
+            //     let rows_down = target_col / term_wid;
+            //     let final_col = target_col % term_wid;
+           
+                // execute!(
+                //     stdout(),
+                //     cursor::MoveUp(rows_down),
+                //     cursor::MoveToColumn(final_col)
+                // ).unwrap_or_default();
+                // } else {
+                // execute!(
+                //     stdout(),
+                //     cursor::MoveToColumn(target_col),
+                // ).unwrap_or_default();
+                // }
+            // ======================================= legacy code ========================================================================================================================================
                 stdout().flush().unwrap();
             }
         }

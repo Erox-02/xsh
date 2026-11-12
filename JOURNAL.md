@@ -200,3 +200,5 @@ ok i think i have to do the neuclear method , track coloumn and row both
 I LITERALLY TRIED FUCKING EVERYTHING IT DOESNT WORKS AT ALL
 
 OK i found it ,  i think this one will be a save , if it is not , i will put it to rodo list , I have been passing a string with both colour and text as a single string , how abt if i js push both as a vec and remove the colour frm printing instead of usinf the strip_ansi crate? i think this one will definately work , if it doesnt , todo be ready 
+
+ok i added the logic to directly differentiate colour and text len , got a byte vs String prob , gonna fix on next commit 
