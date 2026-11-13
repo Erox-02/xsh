@@ -208,3 +208,6 @@ MY plan was perfect , WHY IT DOESNT WORK AT ALL???
 i looked through it nd now i js cant find the bug , i saw through my format_line it is vec not string and the OHHHH i can use a slice it will definately work
 
 ok it js doesnt work , i am out for now 
+
+HOW the fucking hell can i be such a idiot? i js did the most idiotic thing anyone can ever think of , its really foolish , i created a fn in rex , it shld output vec and insie the fn i returned `result` which is a string
+:skulllll: , i am a crab after all

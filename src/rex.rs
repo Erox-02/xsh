@@ -1,4 +1,4 @@
-use crossterm::style::Stylize;
+use crossterm::style::{Stylize, Color};
 use regex::Regex;
 use std::fs;
 use std::path::Path;
@@ -46,7 +46,7 @@ impl SyntaxHighlighter {
             }
         
 
-pub fn format_line(&self, line: &str) -> String {  // use vec and option<color ,string > instead of js passing a string  
+pub fn format_line(&self, line: &str) -> Vec<(Option<Color>, String)> {    
     let mut matches: Vec<_> = self.rules.iter()
         .filter_map(|rule| {
             rule.regex.find(line).map(|m| (m.start(), m.end(), &rule.color_name, rule.priority))
@@ -74,7 +74,7 @@ pub fn format_line(&self, line: &str) -> String {  // use vec and option<color ,
                 "cyan" => line[start..end].cyan().to_string(),
                 _ => line[start..end].to_string(),
             };
-            result.push_str(&styled);
+            result.push_str(&styled);  // FOUND IT , THIS TTHING IS THE FUCKING BUG
             pos = end;
         }
 
