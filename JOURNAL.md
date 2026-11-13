@@ -172,7 +172,7 @@ wait also i found too many \n in the output i needa fix tht
 
 ---
 
-# v0.0.7 bug fix
+# v0.0.8 bug fix
 
 i saw the err is like this 
 
@@ -211,3 +211,15 @@ ok it js doesnt work , i am out for now
 
 HOW the fucking hell can i be such a idiot? i js did the most idiotic thing anyone can ever think of , its really foolish , i created a fn in rex , it shld output vec and insie the fn i returned `result` which is a string
 :skulllll: , i am a crab after all
+
+okk i fixed it , the PROB WAS IN REX NOT EXE frm the start lol , i js wasted more than a hour  
+
+ok fixed the vec bug but THE ODD ARTIFACT IS STILL FUCKING HERE ITS NOW GOIN TO TODO , beyond what i can do , wait one last try , i SWEAR this is the last one ,
+ok this time imma gonna verify the runtime environment rather than my code ,because i think my code is pretty fine now after all this shitty debugging of bugs tht never existed
+
+
+HELLLLLLLLLLLLLLLLLLLL YEAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH I FIXED IT , it workssssssssss iam so happyyyyyyyyyyyyyyyyyyyy , it was tht shitty raw terminal mode err , how did i not thought of it , anyways it WORKSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+no more odd formatting i am soooooooooooo good
+
+---

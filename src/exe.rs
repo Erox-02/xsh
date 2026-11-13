@@ -5,6 +5,7 @@ use crossterm::{
     cursor,
     style
 };
+use crossterm::style::Stylize;
 use crate::rex::SyntaxHighlighter;
 use crate::conf::Conf;
 use std::io::{stdout, Write};
@@ -103,7 +104,7 @@ pub fn run_shell(){
 
             for (colour, text) in &colored_line {    // its a mess with my normal british colour and the crates color american english lol
                 if let Some(x) = colour {
-                    print!("{}", text.as_str().with(x));
+                    print!("{}", text.as_str().with(*x));
                     // execute!(stdout(), crossterm::style::SetForegroundColor(x)).unwrap();
                 } else {
                     print!("{text}");
@@ -111,8 +112,8 @@ pub fn run_shell(){
                 }
 
                 let text_len = text.len();  // ITS IN BYTES NOT IN UTF
-                if visible_len + text_len() <= cursor_pos {
-                    cursor_col += text_len() as u16;
+                if visible_len + text_len <= cursor_pos {
+                    cursor_col += text_len as u16;
                 } else if visible_len < cursor_pos {
                     let offset = cursor_pos - visible_len; 
                     cursor_col += offset as u16;
@@ -233,13 +234,25 @@ pub fn run_shell(){
                 }
             }
             _ => {
-                if let Err(e) = Command::new(&final_command).args(&args).status() {
-                    eprintln!("xshell => {e}");
-                    last_exit_code = 127;
+                terminal::disable_raw_mode().unwrap();
+                let status = Command::new(&final_command).args(&args).status();
+                terminal::enable_raw_mode().unwrap();
+
+                match status {
+                    Ok(status) => {
+                       last_exit_code = status.code().unwrap_or(1); 
+                    }
+                    Err(e) => {
+                       eprintln!("xshell => {e}");
+                       last_exit_code = 127; 
+                    }
                 }
+                // if let Err(e) = Command::new(&final_command).args(&args).status() {
+                //     eprintln!("xshell => {e}");
+                //     last_exit_code = 127;
+                // }
             }
         }
     }
-    terminal::disable_raw_mode().unwrap();
 }
     

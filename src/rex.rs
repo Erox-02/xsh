@@ -46,7 +46,7 @@ impl SyntaxHighlighter {
             }
         
 
-pub fn format_line(&self, line: &str) -> Vec<(Option<Color>, String)> {    
+pub fn format_line(&self, line: &str) -> Vec<(Option<Color>, String)> {    // this one shld return a Clean Vec with Option<color> and a string
     let mut matches: Vec<_> = self.rules.iter()
         .filter_map(|rule| {
             rule.regex.find(line).map(|m| (m.start(), m.end(), &rule.color_name, rule.priority))
@@ -54,32 +54,33 @@ pub fn format_line(&self, line: &str) -> Vec<(Option<Color>, String)> {
         .collect();
 
         matches.sort_by(|a, b| a.0.cmp(&b.0));
-        let mut result = String::new();
+        let mut result = Vec::new();
         let mut pos = 0;
 
         if matches.is_empty() {
-            return line.to_string();
+            return vec![(None, line.to_string())];  // we returns _ for color
         }
 
         for (start, end , color_name, _priority) in matches {  
             if start > pos {
-                result.push_str(&line[pos..start]);
+                result.push((None, line[pos..start].to_string()));  //// we returns _ for color
             }
-            let styled = match color_name.as_str() {
-                "red" => line[start..end].red().to_string(),
-                "green" => line[start..end].green().to_string(),
-                "blue" => line[start..end].blue().to_string(),
-                "yellow" => line[start..end].yellow().to_string(),
-                "magenta" => line[start..end].magenta().to_string(),
-                "cyan" => line[start..end].cyan().to_string(),
-                _ => line[start..end].to_string(),
+            let color = match color_name.as_str() {
+                "red" => Some(Color::Red),
+                "green" => Some(Color::Green),
+                "blue" => Some(Color::Blue),
+                "yellow" => Some(Color::Yellow), 
+                "magenta" => Some(Color::Magenta),
+                "cyan" => Some(Color::Cyan),
+                _ => None ,
             };
-            result.push_str(&styled);  // FOUND IT , THIS TTHING IS THE FUCKING BUG
+            // result.push(&styled);  // FOUND IT , THIS TTHING IS THE FUCKING BUG
+            result.push((color, line[start..end].to_string()));
             pos = end;
         }
 
         if pos < line.len() {
-            result.push_str(&line[pos..]);
+            result.push((None, line[pos..].to_string()));
         }
         result
     }
