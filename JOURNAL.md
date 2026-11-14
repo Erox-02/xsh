@@ -238,3 +238,9 @@ okk there we go the basic auto compliton worksss
 # v0.1.0 preee release 
 
 ok i added 2 features to nav with the ctrl + e/a , a to got to the first of the line and e to end , so instead of being a feature creep ik i should ship it but i wanna do something good, atleast lets finish the readme 
+
+sobb i added the colours in readme with such effort to learn tht github doesnt render colours :sobb:
+
+ok now time to host it somewhere like nest?
+
+ok so i decided to publish it on cargo but for tht i need make the .rx accessable without src files, or js let it be like this for v1 :heh:
