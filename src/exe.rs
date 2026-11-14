@@ -3,7 +3,6 @@ use crossterm::{
     event::{self , Event, KeyCode, KeyModifiers},
     execute, terminal,
     cursor,
-    style
 };
 use crossterm::style::Stylize;
 use crate::rex::SyntaxHighlighter;
@@ -58,7 +57,8 @@ pub fn run_shell(){
                     if cursor_pos > 0 {cursor_pos -= 1;}
                 }
                 KeyCode::Right => {
-                    if cursor_pos > 0 {cursor_pos += 1;}
+                    if cursor_pos > buffer.len() {cursor_pos += 1;}
+                    // if cursor_pos > 0 {cursor_pos += 1;}        // wait with it , i can move the cursor even after the buffer which wd look like blackmagic 
                 }
                 KeyCode::Up => {
                     if history_idx > 0 {

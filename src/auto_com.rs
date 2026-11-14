@@ -1,5 +1,4 @@
 use std::{env, fs};
-use std::path::Path;
 
 pub fn complete(line: &str, cursor_pos: usize) -> Option<(String, usize)> {
 

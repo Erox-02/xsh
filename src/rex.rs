@@ -1,4 +1,4 @@
-use crossterm::style::{Stylize, Color};
+use crossterm::style::Color;
 use regex::Regex;
 use std::fs;
 use std::path::Path;
