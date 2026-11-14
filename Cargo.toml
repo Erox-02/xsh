@@ -5,7 +5,7 @@ edition = "2024"
 repository = "https://github.com/Erox-02/xsh"
 license = "GPL-3.0-only"
 readme = "README.md"
-descrition = "A minimal shell in rust"
+description = "A minimal shell in rust"
 
 [dependencies]
 crossterm = "0.29.0"
