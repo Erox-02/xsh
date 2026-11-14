@@ -7,8 +7,8 @@ pub fn complete(line: &str, cursor_pos: usize) -> Option<String: usize> {
         return None;
     }
 
-    let before_cursor  &[..cursor_pos];
-    let start = before_cursor.rfind(char::is_whitespace()).map_or(, |i|i + 1);
+    let before_cursor = &[..cursor_pos];
+    let start = before_cursor.rfind(char::is_whitespace()).map_or(0, |i|i + 1);
 
     let tok = &before_cursor[start..];
 
@@ -69,3 +69,38 @@ candiates.dedup();
 if candiates.is_empy() {
     return None;
 }
+
+// find the common pref(-ix)
+
+let mut common:Vec<char> = candiates[0].chars().collect(); 
+
+for candiate in candiates.iter().skip(1) {
+    let chars: Vec<char> = candiate.chars().collect();
+
+    let matchin = common.iter().zip(chars.iter()).take_while(|(a,b)| a == b).count();    // this line is so confusing tht even confusion got confused and i wrote it anyways
+    
+    common.truncate(matchin);
+}
+
+let mut replacement: String = common.into_iter().collect();
+
+if candiates.len() == 1 {
+    replacement = candiates[0..].clone();  // not pretty sure abt this line
+    
+    if !replacement.ends_with("/") {
+        replacement.push('');
+    }
+}
+
+let suffix = &line[cursor_pos..];
+
+let new_line = format!(
+    "{}{}{}",
+    &line[..start],
+    replacement,
+    suffix
+);
+
+let new_cursor = start + replacement.len();
+
+Some((new_line, new_cursor))

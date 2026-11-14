@@ -10,6 +10,7 @@ use crate::rex::SyntaxHighlighter;
 use crate::conf::Conf;
 use std::io::{stdout, Write};
 use crate::prmpt::get_prompt;
+use crate::auto_com::complete;
 
 pub fn run_shell(){
     let conf = Conf::load();
