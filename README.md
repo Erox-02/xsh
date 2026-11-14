@@ -101,6 +101,8 @@ here cd and ls both got highlighted and cd returned the err code , so prompt wen
 
 # Build and Run 
 
+## From source
+
 ```sh
 git clone https://github.com/Erox-02/xsh
 cd xsh*
@@ -112,6 +114,14 @@ and for the faster optimized version ,
 ```sh
 cargo build --release && cargo run
 ```
+## cargo
+
+```sh
+cargo insall xsh
+```
+
+this is the prefed way by many , but for this project in current state , git is safer , because of the .rx file syntax highlighting logic
+
 
 ### dependencies
 
@@ -126,6 +136,7 @@ toml = "1.1.8"
 
 - alias and wildcard(glob) doesnt work togeher
 - no copy , paste 
+- cargo install one doesnt support syntax highlighting
 
 # Author
 

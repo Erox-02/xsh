@@ -244,3 +244,6 @@ sobb i added the colours in readme with such effort to learn tht github doesnt r
 ok now time to host it somewhere like nest?
 
 ok so i decided to publish it on cargo but for tht i need make the .rx accessable without src files, or js let it be like this for v1 :heh:
+
+anyways the syntax highlighting wont work on the cargo one , bec of the rex.rx file anyways thts not my prob for now 
+---
