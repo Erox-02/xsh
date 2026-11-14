@@ -57,7 +57,7 @@ pub fn run_shell(){
                     if cursor_pos > 0 {cursor_pos -= 1;}
                 }
                 KeyCode::Right => {
-                    if cursor_pos > buffer.len() {cursor_pos += 1;}
+                    if cursor_pos < buffer.len() {cursor_pos += 1;}
                     // if cursor_pos > 0 {cursor_pos += 1;}        // wait with it , i can move the cursor even after the buffer which wd look like blackmagic 
                 }
                 KeyCode::Up => {
@@ -82,6 +82,16 @@ pub fn run_shell(){
                     if let Some((new_buffer, new_cursor)) = complete(&buffer, cursor_pos)
                     {buffer = new_buffer; cursor_pos = new_cursor; }
                 }
+                KeyCode::Char('a')
+                    if key_event.modifiers.contains(KeyModifiers::CONTROL) =>
+                    {
+                        cursor_pos = 0;
+                    }
+                KeyCode::Char('e')
+                    if key_event.modifiers.contains(KeyModifiers::CONTROL) =>
+                    {
+                        cursor_pos = buffer.len();
+                    }
                 KeyCode::Char(c) => {
                     buffer.insert(cursor_pos, c);
                     cursor_pos += 1;

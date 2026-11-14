@@ -234,3 +234,7 @@ lol i made the keycode in exe , and put it after wildcard char  , am i drunk?
 
 okk there we go the basic auto compliton worksss
 ---
+
+# v0.1.0 preee release 
+
+ok i added 2 features to nav with the ctrl + e/a , a to got to the first of the line and e to end , so instead of being a feature creep ik i should ship it but i wanna do something good, atleast lets finish the readme 
