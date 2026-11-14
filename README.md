@@ -64,17 +64,17 @@ pattern<in regex> colour // one space
 
 ### suppoerted colours =>
 
-> <span style="color: red;">red</span>
+<span style="color: red;">red</span>
 
-> <span style="color: green;">green</span>
+<span style="color: green;">green</span>
 
-> <span style="color: blue;">blue</span>
+<span style="color: blue;">blue</span>
 
-> <span style="color: yellow;">yellow</span>
+<span style="color: yellow;">yellow</span>
 
-> <span style="color: magenta;">magneta</span>
+<span style="color: magenta;">magneta</span>
 
-> <span style="color: cyan;">cyan</span>
+<span style="color: cyan;">cyan</span>
 
 
 ### Example 
