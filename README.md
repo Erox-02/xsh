@@ -122,6 +122,11 @@ serde = "1.0"
 shlex = "2.0.1"
 toml = "1.1.8"
 
+# Limitations / TODO
+
+- alias and wildcard(glob) doesnt work togeher
+- no copy , paste 
+
 # Author
 
 ### Erox-02 
