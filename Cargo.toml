@@ -2,6 +2,9 @@
 name = "xsh"
 version = "0.0.9"
 edition = "2024"
+repository = "https://github.com/Erox-02/xsh"
+license = "GPL-3.0-only"
+readme = "README.md"
 
 [dependencies]
 crossterm = "0.29.0"
