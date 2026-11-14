@@ -1,14 +1,16 @@
 use std::{env, fs};
 use std::path::Path;
 
-pub fn complete(line: &str, cursor_pos: usize) -> Option<String: usize> {
+pub fn complete(line: &str, cursor_pos: usize) -> Option<(String, usize)> {
 
-    if cursor_pos > line.len() || !line.is_cahr_boundary(cursor_pos) {
+    if cursor_pos > line.len() || !line.is_char_boundary(cursor_pos) {
         return None;
     }
 
-    let before_cursor = &[..cursor_pos];
-    let start = before_cursor.rfind(char::is_whitespace()).map_or(0, |i|i + 1);
+    let before_cursor = &line[..cursor_pos];
+    // let before_cursor = &[..cursor_pos]; // ok this one actually makes an array instead of string slice so i needa comment it out lol
+    // let start = before_cursor.rfind(char::is_whitespace).map_or(0, |i|i + 1); // we need diff appoach
+    let start = before_cursor.char_indices().rfind(|(_,c)| c.is_whitespace()).map_or(0,|(i,c)|i + c.len_utf8());
 
     let tok = &before_cursor[start..];
 
@@ -42,31 +44,32 @@ pub fn complete(line: &str, cursor_pos: usize) -> Option<String: usize> {
         };
 
 
-        let dir_pref = if tok.contains("/") {
-            format("{}/", tok.rsplit("/").unwrap().0)
+        let dir_pref = if tok.contains('/') {
+            format!("{}/", tok.rsplit_once('/').unwrap().0)
         } else  {
             String::new()
         };
 
-        if let Ok(entries) = fs::read_dir(parent);
+        if let Ok(entries) = fs::read_dir(parent) {
             for entry in entries.flatten() {
                 let name = entry.file_name().to_string_lossy().to_string();
 
                 if name.starts_with(name_pref) {
                     let mut candiate = format!("{dir_pref}{name}");
                     if entry.path().is_dir() {
-                        candiate.push("/");
+                        candiate.push_str("/");
                     }
                     candiates.push(candiate);
                 }
             }
         }
-}
+    }
+
 
 candiates.sort();
 candiates.dedup();
 
-if candiates.is_empy() {
+if candiates.is_empty() {
     return None;
 }
 
@@ -85,10 +88,10 @@ for candiate in candiates.iter().skip(1) {
 let mut replacement: String = common.into_iter().collect();
 
 if candiates.len() == 1 {
-    replacement = candiates[0..].clone();  // not pretty sure abt this line
+    replacement = candiates[0].clone();  //lmao i was passing the whole instead of first in this array
     
-    if !replacement.ends_with("/") {
-        replacement.push('');
+    if !replacement.ends_with('/') {
+        replacement.push(' ');
     }
 }
 
@@ -104,3 +107,4 @@ let new_line = format!(
 let new_cursor = start + replacement.len();
 
 Some((new_line, new_cursor))
+}

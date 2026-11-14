@@ -227,3 +227,10 @@ no more odd formatting i am soooooooooooo good
 # v0.0.9 auto complition via tab
 
 okk so i started with a new file , auto_com.rs , here i am gonna do a ton of work tht idk , and somehow will manage to make it work 
+
+ok i wrote the whole code , debugged and forgot to journal , lol sucks to forget things , anyways now we needa add the new complete fn in exe , also i have a funny thing , i wrote  candiate instead of candidates and then continued bec i was coping , and now its the permanent var, like hell imma gonna change it
+
+lol i made the keycode in exe , and put it after wildcard char  , am i drunk?
+
+okk there we go the basic auto compliton worksss
+---

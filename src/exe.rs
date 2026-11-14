@@ -78,6 +78,10 @@ pub fn run_shell(){
                     cursor_pos = buffer.len();
                     }
                 }
+                KeyCode::Tab => {
+                    if let Some((new_buffer, new_cursor)) = complete(&buffer, cursor_pos)
+                    {buffer = new_buffer; cursor_pos = new_cursor; }
+                }
                 KeyCode::Char(c) => {
                     buffer.insert(cursor_pos, c);
                     cursor_pos += 1;
