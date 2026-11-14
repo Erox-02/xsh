@@ -223,3 +223,7 @@ HELLLLLLLLLLLLLLLLLLLL YEAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH I FIXED IT , it workss
 no more odd formatting i am soooooooooooo good
 
 ---
+
+# v0.0.9 auto complition via tab
+
+okk so i started with a new file , auto_com.rs , here i am gonna do a ton of work tht idk , and somehow will manage to make it work 
